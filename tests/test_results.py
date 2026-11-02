@@ -1,4 +1,4 @@
-import re
+
 import pytest
 from playwright.sync_api import Page, expect
    
@@ -13,9 +13,10 @@ def test_resultsScreenUI(page: Page , navigation):
     
 @pytest.mark.smoke
 @pytest.mark.usefixtures("navigation")    
-def test_Cart_value(page: Page , navigation , slow_mo=3000):
+def test_Cart_value(page: Page , navigation):
     page.get_by_role("searchbox", name="Search Amazon.in").click()
     page.get_by_role("searchbox", name="Search Amazon.in").fill("iphone")
     page.get_by_role("searchbox", name="Search Amazon.in").press("Enter")
+    print('running test')
     page.locator("#a-autoid-3").get_by_role("button", name="Add to cart").click()
     expect(page.locator("#nav-cart-count")).to_contain_text("1")
